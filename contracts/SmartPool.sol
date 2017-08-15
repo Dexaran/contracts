@@ -867,7 +867,7 @@ contract SmartPool is Agt, WeightedSubmission {
     }
 
     mapping(address=>MinerData) minersData;
-    mapping(bytes32=>bool)      public existingIds;        
+    mapping(bytes32=>bool)      public existingIds;
     
     bool public whiteListEnabled;
     bool public blackListEnabled;
@@ -889,6 +889,14 @@ contract SmartPool is Agt, WeightedSubmission {
         
         whiteListEnabled = _whiteListEnabled;
         blackListEnabled = _blackListEnabled;               
+    }
+    
+    function replaceOwner(address _newOwner) {
+        require( owners[msg.sender] );
+        
+        owners[msg.sender] = false;
+        owners[_newOwner]  = true;
+        
     }
     
     function declareNewerVersion() {
@@ -1313,6 +1321,3 @@ contract SmartPool is Agt, WeightedSubmission {
             
     }        
 }
-
-
-
