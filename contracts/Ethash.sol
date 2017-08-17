@@ -221,10 +221,16 @@ contract Ethash is SHA3_512 {
     
     mapping(address=>bool) public owners;
     
-    function Ethash(address[3] _owners) {
-        owners[_owners[0]] = true;
-        owners[_owners[1]] = true;
-        owners[_owners[2]] = true;                
+    function Ethash(address _owner) {
+        owners[_owner] = true;              
+    }
+    
+    function replaceOwner(address _newOwner) {
+        require( owners[msg.sender] );
+        
+        owners[msg.sender] = false;
+        owners[_newOwner]  = true;
+        
     }
      
     function fnv( uint v1, uint v2 ) constant internal returns(uint) {
